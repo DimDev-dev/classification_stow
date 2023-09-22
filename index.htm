@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculateur de Catégorie d'Article</title>
+</head>
+<body>
+  <h1>Calculateur de Catégorie d'Article</h1>
+  <form id="articleForm">
+    <label for="poids">Poids de l'article (en kg) :</label>
+    <input type="number" id="poids" step="0.01" required><br><br>
+
+    <label for="taille">Taille de l'article (en cm) :</label>
+    <input type="number" id="taille" required><br><br>
+
+    <label for="nom">Nom de l'article :</label>
+    <input type="text" id="nom" required><br><br>
+
+    <label for="stabilite">L'article est-il stable ?</label>
+    <select id="stabilite">
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select><br><br>
+
+    <button type="button" onclick="calculerCategorie()">Calculer Catégorie</button>
+  </form>
+
+  <p id="resultat"></p>
+
+  <script>
+    function calculerCategorie() {
+      const poids = parseFloat(document.getElementById("poids").value);
+      const taille = parseFloat(document.getElementById("taille").value);
+      const nom = document.getElementById("nom").value;
+      const stabilite = document.getElementById("stabilite").value.toLowerCase();
+
+      let categorie = "";
+
+      if (poids >= 3) {
+        if (stabilite === "oui") {
+          categorie = "E";
+        } else {
+          categorie = "D";
+        }
+      } else {
+        if (taille >= 15) {
+          categorie = "F";
+        } else {
+          if (stabilite === "oui") {
+            categorie = "B";
+          } else {
+            categorie = "C";
+          }
+        }
+      }
+
+      const resultat = document.getElementById("resultat");
+      resultat.textContent = `L'article "${nom}" est de catégorie ${categorie}`;
+    }
+  </script>
+</body>
+</html>
